@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>바나바 · 파일 선택 완료</title>
+<style>body{font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;background:#f2f2f7;display:flex;min-height:100vh;margin:0;align-items:center;justify-content:center;padding:24px;box-sizing:border-box}
+.b{background:#fff;border-radius:20px;padding:28px 24px;max-width:420px;width:100%;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+a{display:block;margin-top:18px;padding:14px;border-radius:12px;background:#007aff;color:#fff;text-decoration:none;font-weight:600}p{color:#6e6e73;line-height:1.6}</style></head>
+<body><div class="b"><h2 id="t">바나바 앱으로 돌아갑니다</h2><p id="m">잠시 뒤 자동으로 앱이 열립니다. 열리지 않으면 아래 단추를 눌러 주세요.</p><a id="go" href="#">바나바 앱 열기</a></div>
+<script>
+/* 구글 파일 선택 화면이 끝나면 이 페이지로 돌아온다. 받은 값(picked_file_ids, state, error)을 그대로 앱 주소로 넘긴다.
+   이 페이지는 아무 정보도 저장하거나 서버로 보내지 않는다. 인증 코드(code)는 앱에 넘기지 않고 버린다. */
+var q = new URLSearchParams(location.search), out = new URLSearchParams();
+["picked_file_ids", "state", "error"].forEach(function (k) { if (q.get(k)) out.set(k, q.get(k)); });
+var url = "kr.dasibon.barnabas://picked?" + out.toString();
+document.getElementById("go").href = url;
+if (q.get("error")) { document.getElementById("t").textContent = "선택을 취소했습니다"; }
+setTimeout(function () { location.href = url; }, 300);
+</script></body></html>
